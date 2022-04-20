@@ -10,17 +10,17 @@ class MyReceiver : BroadcastReceiver() {
 
     private var messageId = 0
     override fun onReceive(context: Context, intent: Intent) {
-        var message = intent.getStringExtra("key2")
+        var message = intent.getStringExtra(KEY_MESSAGE)
         if (message == null){
             message = ""
         }
-        val notificationCompat: NotificationCompat.Builder = NotificationCompat.Builder(context,"2")
-        notificationCompat.apply {
-            setSmallIcon(R.mipmap.ic_launcher)
-            setContentTitle("Broadcast Receiver")
-            setContentText(message)
-        }
-      val notificationManager: NotificationManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-        notificationManager.notify(messageId++, notificationCompat.build())
+        val notification = NotificationCompat.Builder(context,"2")
+            .setSmallIcon(R.mipmap.ic_launcher)
+            .setContentTitle("Broadcast Receiver")
+            .setContentText(message)
+            .build()
+
+      val notificationManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+        notificationManager.notify(messageId++,notification)
 }
 }
